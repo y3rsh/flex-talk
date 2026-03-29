@@ -1,5 +1,5 @@
 {
-  "name": "@opentrons/flex-client",
+  "name": "@y3rsh/flex-client",
   "version": "0.1.0",
   "description": "TypeScript client for the Opentrons Flex HTTP API",
   "license": "MIT",
@@ -17,6 +17,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json && node ./scripts/postbuild.mjs",
     "prepack": "npm run build",

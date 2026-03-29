@@ -124,19 +124,42 @@ export class HttpClient {
     });
   }
 
+  public async postBinary(
+    path: string,
+    body?: unknown
+  ): Promise<{ data: Uint8Array; contentType: string | null }> {
+    const requestInit: RequestInit = {
+      method: "POST",
+      headers: buildDefaultHeaders(),
+    };
+    if (body !== undefined) {
+      requestInit.headers = withJsonBody(body, requestInit.headers);
+      requestInit.body = JSON.stringify(body);
+    }
+    const response = await this.requestResponse(path, requestInit);
+    const arrayBuffer = await response.arrayBuffer();
+    return {
+      data: new Uint8Array(arrayBuffer),
+      contentType: response.headers.get("content-type"),
+    };
+  }
+
   private async request<T>(path: string, init: RequestInit): Promise<T> {
+    const response = await this.requestResponse(path, init);
+    const body = await parseBody(response);
+    return body as T;
+  }
+
+  private async requestResponse(path: string, init: RequestInit): Promise<Response> {
     const url = `${this.baseUrl}${path}`;
     const response = await this.fetchFn(url, {
       ...init,
       headers: buildDefaultHeaders(init.headers),
     });
-
-    const body = await parseBody(response);
-
     if (!response.ok) {
+      const body = await parseBody(response);
       throw parseErrorPayload(response.status, body);
     }
-
-    return body as T;
+    return response;
   }
 }

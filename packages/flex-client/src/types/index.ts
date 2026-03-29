@@ -1,3 +1,4 @@
+export * from "./camera.js";
 export * from "./commands.js";
 export * from "./deck.js";
 export * from "./errorRecovery.js";

@@ -1,4 +1,4 @@
-# @opentrons/flex-client
+# @y3rsh/flex-client
 
 TypeScript client for the Opentrons Flex HTTP API.
 
@@ -7,13 +7,13 @@ Flow-first, typed access to a Flex robot for app code, scripts, MCP tooling, and
 ## Install
 
 ```bash
-npm install @opentrons/flex-client
+npm install @y3rsh/flex-client
 ```
 
 ## Quick Start
 
 ```ts
-import { FlexClient } from "@opentrons/flex-client";
+import { FlexClient } from "@y3rsh/flex-client";
 
 const robot = new FlexClient({ host: "192.168.1.42" });
 const health = await robot.health.get();
@@ -24,7 +24,7 @@ console.log(health.robotSerial);
 ## Configuration
 
 ```ts
-import { FlexClient } from "@opentrons/flex-client";
+import { FlexClient } from "@y3rsh/flex-client";
 import fetch from "node-fetch";
 
 const robot = new FlexClient({
@@ -38,6 +38,7 @@ const robot = new FlexClient({
 ## API Surface
 
 - `robot.health`
+- `robot.camera`
 - `robot.instruments`
 - `robot.modules`
 - `robot.protocols`
@@ -81,10 +82,20 @@ console.log("gripper attached:", Boolean(gripper));
 console.log("modules:", modules.map((m) => `${m.moduleModel} in ${m.slotName}`));
 ```
 
+### Capture a deck image
+
+```ts
+import { writeFile } from "node:fs/promises";
+
+const image = await robot.camera.takePicture();
+await writeFile("deck.jpg", image.data);
+console.log("saved deck image with content type:", image.contentType);
+```
+
 ### Discover robots on the network
 
 ```ts
-import { FlexClient } from "@opentrons/flex-client";
+import { FlexClient } from "@y3rsh/flex-client";
 
 const discovery = FlexClient.createDiscoveryClient({
   candidates: ["localhost", "192.168.1.42"],
@@ -134,7 +145,7 @@ await robot.maintenance.delete(mRun.id);
 ### Error handling
 
 ```ts
-import { FlexApiError, FlexRunFailedError, FlexTimeoutError } from "@opentrons/flex-client";
+import { FlexApiError, FlexRunFailedError, FlexTimeoutError } from "@y3rsh/flex-client";
 
 try {
   await robot.runs.waitForCompletion("run-id", { timeoutMs: 60_000 });
@@ -170,6 +181,16 @@ await robot.deck.setConfiguration([
 - Unit tests: `npm test`
 - Type checks: `npm run typecheck`
 - Build outputs: `npm run build`
+
+## Publishing
+
+Publishing is handled by CI via `.github/workflows/publish-flex-client.yml`.
+
+- Push to `main` publishes automatically with DateVer format:
+  - `YYYY.M.D-r<GITHUB_RUN_NUMBER>.<GITHUB_RUN_ATTEMPT>`
+- Manual publish is available via workflow dispatch:
+  - optional `version` input for explicit DateVer/semver string
+- Target registry: GitHub Packages (`@y3rsh/flex-client`)
 
 ## Status
 

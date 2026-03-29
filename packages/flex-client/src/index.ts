@@ -14,6 +14,7 @@ export type {
 export { FlexApiError, FlexRunFailedError, FlexTimeoutError } from "./errors.js";
 
 export { DeckResource } from "./resources/DeckResource.js";
+export { CameraResource } from "./resources/CameraResource.js";
 export { ErrorRecoveryResource } from "./resources/ErrorRecoveryResource.js";
 export { HealthResource } from "./resources/HealthResource.js";
 export { InstrumentsResource } from "./resources/InstrumentsResource.js";

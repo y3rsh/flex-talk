@@ -2,6 +2,7 @@ import { HttpClient } from "./http.js";
 import type { FetchLike } from "./http.js";
 import { FlexDiscoveryClient } from "./discovery/FlexDiscoveryClient.js";
 import type { DiscoveryClientOptions } from "./discovery/types.js";
+import { CameraResource } from "./resources/CameraResource.js";
 import { DeckResource } from "./resources/DeckResource.js";
 import { ErrorRecoveryResource } from "./resources/ErrorRecoveryResource.js";
 import { HealthResource } from "./resources/HealthResource.js";
@@ -21,6 +22,7 @@ export interface FlexClientConfig {
 }
 
 export class FlexClient {
+  public readonly camera: CameraResource;
   public readonly deck: DeckResource;
   public readonly errorRecovery: ErrorRecoveryResource;
   public readonly health: HealthResource;
@@ -39,6 +41,7 @@ export class FlexClient {
     const baseUrl = `${protocol}://${config.host}:${port}`;
 
     this.http = new HttpClient(baseUrl, config.fetch);
+    this.camera = new CameraResource(this.http);
     this.deck = new DeckResource(this.http);
     this.errorRecovery = new ErrorRecoveryResource(this.http);
     this.health = new HealthResource(this.http);

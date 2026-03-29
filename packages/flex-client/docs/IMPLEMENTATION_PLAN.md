@@ -1,6 +1,6 @@
 # opentrons-flex-client Implementation Plan
 
-This document captures the v1 plan for `@opentrons/flex-client` and the execution order for delivering a typed, flow-first TypeScript client for Opentrons Flex.
+This document captures the v1 plan for `@y3rsh/flex-client` and the execution order for delivering a typed, flow-first TypeScript client for Opentrons Flex.
 
 ## Scope
 
@@ -63,6 +63,8 @@ packages/flex-client/
 10. Type hardening pass for command unions and response models
 11. README completion and usage examples
 12. Discovery module parity pass (recreate + streamline app discovery behavior)
+13. Camera resource support (`/camera` + image capture endpoints)
+14. CI publish workflow with DateVer versioning for GitHub Packages
 
 ## Definitions of Done
 
@@ -89,3 +91,5 @@ Each phase ships with:
 - [x] Phase 10: type hardening pass on command models
 - [x] Phase 11: README completion and usage examples
 - [x] Phase 12: discovery module recreation and simplification
+- [x] Phase 13: camera resource support and docs
+- [x] Phase 14: CI GitHub Packages publishing with DateVer
