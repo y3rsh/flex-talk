@@ -65,6 +65,7 @@ packages/flex-client/
 12. Discovery module parity pass (recreate + streamline app discovery behavior)
 13. Camera resource support (`/camera` + image capture endpoints)
 14. CI publish workflow with DateVer versioning for GitHub Packages
+15. Agent ecosystem adapters (`flex-tools-core` and `flex-mcp-server`)
 
 ## Definitions of Done
 
@@ -93,3 +94,4 @@ Each phase ships with:
 - [x] Phase 12: discovery module recreation and simplification
 - [x] Phase 13: camera resource support and docs
 - [x] Phase 14: CI GitHub Packages publishing with DateVer
+- [x] Phase 15: reusable tool-core and MCP server adapter packages

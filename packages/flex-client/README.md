@@ -192,6 +192,16 @@ Publishing is handled by CI via `.github/workflows/publish-flex-client.yml`.
   - optional `version` input for explicit DateVer/semver string
 - Target registry: GitHub Packages (`@y3rsh/flex-client`)
 
+## Agent Ecosystem Packages
+
+- `@y3rsh/flex-tools-core`
+  - framework-agnostic tool definitions backed by this client
+- `@y3rsh/flex-mcp-server`
+  - MCP server adapter that exposes the core tool set over stdio
+
+These packages make the same typed Flex capabilities reusable from Claude,
+Cursor, and other agentic tooling stacks.
+
 ## Status
 
 Implementation is tracked in `docs/IMPLEMENTATION_PLAN.md`. Planned v1 phases 1 through 11 are now implemented.
