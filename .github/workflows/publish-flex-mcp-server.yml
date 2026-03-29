@@ -43,6 +43,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Link local flex-tools-core for validation
+        run: npm install --no-save ../flex-tools-core ../flex-client
+
       - name: Validate package
         run: npm run typecheck && npm run build
 
