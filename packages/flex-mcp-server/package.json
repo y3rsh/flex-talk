@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.18.0",
-    "@y3rsh/flex-tools-core": "file:../flex-tools-core",
+    "@y3rsh/flex-tools-core": ">=0.1.0",
     "zod": "^4.1.11"
   },
   "devDependencies": {

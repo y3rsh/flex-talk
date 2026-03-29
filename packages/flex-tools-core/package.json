@@ -26,7 +26,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@y3rsh/flex-client": "file:../flex-client"
+    "@y3rsh/flex-client": ">=0.1.0"
   },
   "devDependencies": {
     "@types/node": "^24.5.2",

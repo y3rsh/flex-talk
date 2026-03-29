@@ -1,12 +1,12 @@
-name: Publish Flex Client
+name: Publish Flex Tools Core
 
 on:
   push:
     branches:
       - main
     paths:
-      - ".github/workflows/publish-flex-client.yml"
-      - "packages/flex-client/**"
+      - ".github/workflows/publish-flex-tools-core.yml"
+      - "packages/flex-tools-core/**"
   workflow_dispatch:
     inputs:
       version:
@@ -19,7 +19,7 @@ permissions:
   packages: write
 
 concurrency:
-  group: publish-flex-client-${{ github.ref }}
+  group: publish-flex-tools-core-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'push' }}
 
 jobs:
@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: packages/flex-client
+        working-directory: packages/flex-tools-core
 
     steps:
       - name: Checkout
@@ -44,7 +44,7 @@ jobs:
         run: npm ci
 
       - name: Validate package
-        run: npm run typecheck && npm test
+        run: npm run typecheck && npm run build
 
       - name: Resolve DateVer
         id: version
