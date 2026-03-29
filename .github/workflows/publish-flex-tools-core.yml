@@ -43,8 +43,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Link local flex-client for validation
-        run: npm install --no-save ../flex-client
+      - name: Build and link local flex-client for validation
+        run: |
+          pushd ../flex-client
+          npm ci
+          npm run build
+          popd
+          npm install --no-save ../flex-client
 
       - name: Validate package
         run: npm run typecheck && npm run build
