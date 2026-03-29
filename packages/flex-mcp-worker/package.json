@@ -1,0 +1,22 @@
+{
+  "name": "@y3rsh/flex-mcp-worker",
+  "version": "0.1.0",
+  "description": "Cloudflare Worker host for the public guidance-only Flex MCP endpoint",
+  "license": "MIT",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.18.0",
+    "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260320.0",
+    "typescript": "^5.8.3",
+    "wrangler": "^4.8.0"
+  }
+}

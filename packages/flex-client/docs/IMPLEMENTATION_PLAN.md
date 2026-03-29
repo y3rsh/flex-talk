@@ -67,6 +67,8 @@ packages/flex-client/
 14. CI publish workflow with DateVer versioning for GitHub Packages
 15. Agent ecosystem adapters (`flex-tools-core` and `flex-mcp-server`)
 16. Guidance-only MCP mode (resources/prompts for local execution pattern)
+17. Cloudflare Worker public host for guidance MCP (`flex-mcp-worker`)
+18. CI deploy workflow for Cloudflare MCP worker
 
 ## Definitions of Done
 
@@ -97,3 +99,5 @@ Each phase ships with:
 - [x] Phase 14: CI GitHub Packages publishing with DateVer
 - [x] Phase 15: reusable tool-core and MCP server adapter packages
 - [x] Phase 16: guidance-only MCP resources/prompts mode
+- [x] Phase 17: public Cloudflare Worker MCP host scaffold
+- [x] Phase 18: GitHub Actions deploy workflow for Worker
