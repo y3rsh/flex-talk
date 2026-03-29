@@ -1,7 +1,7 @@
 {
   "name": "@y3rsh/flex-mcp-server",
   "version": "0.1.0",
-  "description": "MCP server adapter for @y3rsh/flex-client tools",
+  "description": "Guide/spec MCP server for local @y3rsh/flex-client execution",
   "license": "MIT",
   "type": "module",
   "main": "dist/index.js",

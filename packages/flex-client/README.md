@@ -197,7 +197,7 @@ Publishing is handled by CI via `.github/workflows/publish-flex-client.yml`.
 - `@y3rsh/flex-tools-core`
   - framework-agnostic tool definitions backed by this client
 - `@y3rsh/flex-mcp-server`
-  - MCP server adapter that exposes the core tool set over stdio
+  - guidance/spec MCP server (resources + prompts, no remote execution)
 
 These packages make the same typed Flex capabilities reusable from Claude,
 Cursor, and other agentic tooling stacks.
