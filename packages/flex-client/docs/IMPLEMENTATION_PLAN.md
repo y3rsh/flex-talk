@@ -64,11 +64,8 @@ packages/flex-client/
 11. README completion and usage examples
 12. Discovery module parity pass (recreate + streamline app discovery behavior)
 13. Camera resource support (`/camera` + image capture endpoints)
-14. CI publish workflow with DateVer versioning for GitHub Packages
-15. Agent ecosystem adapters (`flex-tools-core` and `flex-mcp-server`)
-16. Guidance-only MCP mode (resources/prompts for local execution pattern)
-17. Cloudflare Worker public host for guidance MCP (`flex-mcp-worker`)
-18. CI deploy workflow for Cloudflare MCP worker
+14. CI publish workflow with DateVer versioning for npmjs
+15. Agent ecosystem adapters (`flex-tools-core`)
 
 ## Definitions of Done
 
@@ -96,8 +93,5 @@ Each phase ships with:
 - [x] Phase 11: README completion and usage examples
 - [x] Phase 12: discovery module recreation and simplification
 - [x] Phase 13: camera resource support and docs
-- [x] Phase 14: CI GitHub Packages publishing with DateVer
-- [x] Phase 15: reusable tool-core and MCP server adapter packages
-- [x] Phase 16: guidance-only MCP resources/prompts mode
-- [x] Phase 17: public Cloudflare Worker MCP host scaffold
-- [x] Phase 18: GitHub Actions deploy workflow for Worker
+- [x] Phase 14: CI npmjs publishing with DateVer
+- [x] Phase 15: reusable tool-core adapter package

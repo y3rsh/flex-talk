@@ -2,7 +2,7 @@
 
 TypeScript client for the Opentrons Flex HTTP API.
 
-Flow-first, typed access to a Flex robot for app code, scripts, MCP tooling, and agentic workflows.
+Flow-first, typed access to a Flex robot for app code, scripts, and agentic workflows.
 
 ## Install
 
@@ -190,18 +190,15 @@ Publishing is handled by CI via `.github/workflows/publish-flex-client.yml`.
   - `YYYY.M.D-r<GITHUB_RUN_NUMBER>.<GITHUB_RUN_ATTEMPT>`
 - Manual publish is available via workflow dispatch:
   - optional `version` input for explicit DateVer/semver string
-- Target registry: GitHub Packages (`@y3rsh/flex-client`)
+- Target registry: npmjs (`@y3rsh/flex-client`)
+- Required repository secret for publish workflows: `NPM_TOKEN`
 
 ## Agent Ecosystem Packages
 
 - `@y3rsh/flex-tools-core`
   - framework-agnostic tool definitions backed by this client
-- `@y3rsh/flex-mcp-server`
-  - guidance/spec MCP server (resources + prompts, no remote execution)
-- `@y3rsh/flex-mcp-worker`
-  - Cloudflare Worker host for public guidance MCP over `/mcp`
 
-These packages make the same typed Flex capabilities reusable from Claude,
+This package keeps the same typed Flex capabilities reusable from Claude,
 Cursor, and other agentic tooling stacks.
 
 ## Status
