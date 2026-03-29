@@ -1,0 +1,33 @@
+{
+  "name": "@opentrons/flex-client",
+  "version": "0.1.0",
+  "description": "TypeScript client for the Opentrons Flex HTTP API",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json && node ./scripts/postbuild.mjs",
+    "prepack": "npm run build",
+    "typecheck": "tsc --noEmit",
+    "test": "jest --config jest.config.cjs",
+    "test:integration": "FLEX_HOST=${FLEX_HOST:-} jest --config jest.config.cjs --testPathPattern=integration --runInBand"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.8.3"
+  }
+}

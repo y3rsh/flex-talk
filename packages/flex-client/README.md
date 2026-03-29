@@ -1,0 +1,145 @@
+# @opentrons/flex-client
+
+TypeScript client for the Opentrons Flex HTTP API.
+
+Flow-first, typed access to a Flex robot for app code, scripts, MCP tooling, and agentic workflows.
+
+## Install
+
+```bash
+npm install @opentrons/flex-client
+```
+
+## Quick Start
+
+```ts
+import { FlexClient } from "@opentrons/flex-client";
+
+const robot = new FlexClient({ host: "192.168.1.42" });
+const health = await robot.health.get();
+
+console.log(health.robotSerial);
+```
+
+## Configuration
+
+```ts
+import { FlexClient } from "@opentrons/flex-client";
+import fetch from "node-fetch";
+
+const robot = new FlexClient({
+  host: "192.168.1.42",
+  port: 31950,
+  protocol: "http",
+  fetch, // optional for non-native-fetch runtimes
+});
+```
+
+## API Surface
+
+- `robot.health`
+- `robot.instruments`
+- `robot.modules`
+- `robot.protocols`
+- `robot.runs`
+- `robot.labwareOffsets`
+- `robot.maintenance`
+- `robot.deck`
+- `robot.errorRecovery`
+- `robot.system`
+
+## Common Workflows
+
+### Upload and run a protocol
+
+```ts
+const protocol = await robot.protocols.upload(pythonSource, "my_assay.py");
+const offsets = await robot.labwareOffsets.list();
+
+const run = await robot.runs.create({
+  protocolId: protocol.id,
+  labwareOffsets: offsets,
+});
+
+await robot.runs.start(run.id);
+const finalRun = await robot.runs.waitForCompletion(run.id);
+console.log(finalRun.status);
+```
+
+### Inspect attached hardware
+
+```ts
+const [pipettes, gripper, modules] = await Promise.all([
+  robot.instruments.pipettes(),
+  robot.instruments.gripper(),
+  robot.modules.list(),
+]);
+
+console.log("pipettes:", pipettes.map((p) => `${p.instrumentName} on ${p.mount}`));
+console.log("gripper attached:", Boolean(gripper));
+console.log("modules:", modules.map((m) => `${m.moduleModel} in ${m.slotName}`));
+```
+
+### Maintenance run and direct command
+
+```ts
+const mRun = await robot.maintenance.create();
+
+await robot.maintenance.enqueueCommand(mRun.id, {
+  data: {
+    commandType: "moveToWell",
+    params: {
+      pipetteId: "pipette-id",
+      labwareId: "labware-id",
+      wellName: "A1",
+      wellLocation: { origin: "top", offset: { x: 0, y: 0, z: 5 } },
+    },
+  },
+});
+
+await robot.maintenance.delete(mRun.id);
+```
+
+### Error handling
+
+```ts
+import { FlexApiError, FlexRunFailedError, FlexTimeoutError } from "@opentrons/flex-client";
+
+try {
+  await robot.runs.waitForCompletion("run-id", { timeoutMs: 60_000 });
+} catch (error) {
+  if (error instanceof FlexRunFailedError) {
+    console.error("run failed", error.errors);
+  } else if (error instanceof FlexTimeoutError) {
+    console.error("run timeout", error.lastStatus);
+  } else if (error instanceof FlexApiError) {
+    console.error("api error", error.status, error.errorCode, error.message);
+  } else {
+    throw error;
+  }
+}
+```
+
+### Deck configuration
+
+```ts
+const config = await robot.deck.getConfiguration();
+
+await robot.deck.setConfiguration([
+  ...config.data.filter((c) => c.cutoutId !== "cutoutD3"),
+  {
+    cutoutId: "cutoutD3",
+    cutoutFixtureId: "wasteChuteRightAdapterNoCover",
+  },
+]);
+```
+
+## Testing
+
+- Unit tests: `npm test`
+- Type checks: `npm run typecheck`
+- Build outputs: `npm run build`
+
+## Status
+
+Implementation is tracked in `docs/IMPLEMENTATION_PLAN.md`. Planned v1 phases 1 through 11 are now implemented.
