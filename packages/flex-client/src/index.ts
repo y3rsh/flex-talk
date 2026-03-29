@@ -3,6 +3,13 @@ export type { FlexClientConfig } from "./FlexClient.js";
 
 export { HttpClient } from "./http.js";
 export type { FetchLike } from "./http.js";
+export { FlexDiscoveryClient } from "./discovery/index.js";
+export type {
+  DiscoveryCandidate,
+  DiscoveryClientEvents,
+  DiscoveryClientOptions,
+  DiscoveryRobot,
+} from "./discovery/index.js";
 
 export { FlexApiError, FlexRunFailedError, FlexTimeoutError } from "./errors.js";
 

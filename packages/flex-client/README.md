@@ -47,6 +47,7 @@ const robot = new FlexClient({
 - `robot.deck`
 - `robot.errorRecovery`
 - `robot.system`
+- `FlexClient.createDiscoveryClient(...)` for network robot discovery
 
 ## Common Workflows
 
@@ -79,6 +80,36 @@ console.log("pipettes:", pipettes.map((p) => `${p.instrumentName} on ${p.mount}`
 console.log("gripper attached:", Boolean(gripper));
 console.log("modules:", modules.map((m) => `${m.moduleModel} in ${m.slotName}`));
 ```
+
+### Discover robots on the network
+
+```ts
+import { FlexClient } from "@opentrons/flex-client";
+
+const discovery = FlexClient.createDiscoveryClient({
+  candidates: ["localhost", "192.168.1.42"],
+  pollIntervalMs: 2000,
+  // optional: enable /24 private subnet probing
+  enableSubnetScan: false,
+});
+
+discovery.on("update", (robots) => {
+  console.log("discovered:", robots.map((r) => `${r.name}@${r.host}`));
+});
+
+discovery.start();
+// later...
+discovery.stop();
+```
+
+`FlexDiscoveryClient` is a streamlined reimplementation of the discovery logic
+used in the Opentrons monorepo app stack, without pulling in legacy dependency
+chains. It supports:
+
+- candidate-based discovery (`addCandidate`, `removeCandidate`)
+- interval health polling and stale robot eviction
+- optional private subnet scanning
+- typed `update` / `error` events
 
 ### Maintenance run and direct command
 

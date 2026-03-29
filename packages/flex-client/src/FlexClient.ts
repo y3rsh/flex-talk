@@ -1,5 +1,7 @@
 import { HttpClient } from "./http.js";
 import type { FetchLike } from "./http.js";
+import { FlexDiscoveryClient } from "./discovery/FlexDiscoveryClient.js";
+import type { DiscoveryClientOptions } from "./discovery/types.js";
 import { DeckResource } from "./resources/DeckResource.js";
 import { ErrorRecoveryResource } from "./resources/ErrorRecoveryResource.js";
 import { HealthResource } from "./resources/HealthResource.js";
@@ -47,5 +49,11 @@ export class FlexClient {
     this.protocols = new ProtocolsResource(this.http);
     this.runs = new RunsResource(this.http);
     this.system = new SystemResource(this.http);
+  }
+
+  public static createDiscoveryClient(
+    options: DiscoveryClientOptions = {}
+  ): FlexDiscoveryClient {
+    return new FlexDiscoveryClient(options);
   }
 }

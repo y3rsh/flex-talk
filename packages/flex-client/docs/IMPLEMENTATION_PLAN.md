@@ -9,6 +9,8 @@ This document captures the v1 plan for `@opentrons/flex-client` and the executio
 - Strict, AI-friendly TypeScript types.
 - Typed exceptions and internal polling/retry loops.
 - Runtime dependency target: native `fetch` (Node 18+) or `node-fetch`.
+- Include a modern, dependency-light robot discovery layer compatible with
+  Opentrons app workflows.
 
 ## Public Client Shape
 
@@ -60,6 +62,7 @@ packages/flex-client/
 9. `ErrorRecoveryResource` + `SystemResource`
 10. Type hardening pass for command unions and response models
 11. README completion and usage examples
+12. Discovery module parity pass (recreate + streamline app discovery behavior)
 
 ## Definitions of Done
 
@@ -85,3 +88,4 @@ Each phase ships with:
 - [x] Phase 9: `ErrorRecoveryResource` + `SystemResource`
 - [x] Phase 10: type hardening pass on command models
 - [x] Phase 11: README completion and usage examples
+- [x] Phase 12: discovery module recreation and simplification
