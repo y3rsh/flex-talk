@@ -1,0 +1,20 @@
+{
+  "name": "flex-skill-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "prebuild": "node ./scripts/sync-skill-assets.mjs",
+    "build": "astro build",
+    "dev": "astro dev",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "devDependencies": {
+    "astro": "^5.7.0",
+    "typescript": "^5.8.3"
+  }
+}

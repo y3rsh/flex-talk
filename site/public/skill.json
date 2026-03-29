@@ -1,0 +1,11 @@
+{
+  "name": "flex-agentic-tools",
+  "version": "local",
+  "skillUrl": "skill.md",
+  "sourceRepository": "https://github.com/y3rsh/flex-talk",
+  "compatibility": [
+    "agent-skills",
+    "anthropic-claude-skills",
+    "openai-codex-skills"
+  ]
+}

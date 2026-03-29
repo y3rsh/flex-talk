@@ -1,0 +1,57 @@
+name: Publish Skill Site
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/publish-skill-site.yml"
+      - ".agents/skills/flex-agentic-tools/**"
+      - ".claude/skills/flex-agentic-tools/**"
+      - ".codex/skills/flex-agentic-tools/**"
+      - "site/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: publish-skill-site-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-site:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - name: Install site dependencies
+        run: npm ci
+        working-directory: site
+
+      - name: Build Astro skill site
+        run: npm run build
+        working-directory: site
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site/dist
+
+  deploy-github-pages:
+    runs-on: ubuntu-latest
+    needs: build-site
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+
