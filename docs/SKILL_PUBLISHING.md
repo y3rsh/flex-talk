@@ -3,7 +3,7 @@
 This repository publishes the `flex-agentic-tools` skill to:
 
 - GitHub Pages (automatic)
-- Cloudflare Pages (pull-based from GitHub repository)
+- Cloudflare Workers Builds (pull-based from GitHub repository)
 
 ## Source of truth
 
@@ -36,21 +36,27 @@ Published files:
 `skill.json` includes compatibility metadata for Agent Skills, Claude Skills,
 and Codex Skills consumers.
 
-## Cloudflare Pages setup
+## Cloudflare Workers Builds setup
 
-Configure Cloudflare Pages to build directly from this repository with Astro:
+Configure Cloudflare to build and deploy as a Worker from this repository:
 
-1. Cloudflare Dashboard -> Workers & Pages -> Create -> Pages -> Connect to Git
+1. Cloudflare Dashboard -> Workers & Pages -> Create -> Workers -> Import a repository
 2. Select this repository and branch (`main`)
-3. Set build settings:
-   - Build command: `cd site && npm ci && npm run build`
-   - Build output directory: `site/dist`
-   - Root directory: `/` (repo root)
+3. Set build/deploy settings:
+   - Root directory: `site`
+   - Build command: `npm ci && npm run build`
+   - Deploy command: `npm run deploy`
+   - Non-production branch deploy command: `npm run deploy`
+   - Version command: `npm run versions:upload`
+   - Worker path: `worker/index.ts`
 4. Save and deploy
+
+Important: if the project shows "disconnected from your Git account", reconnect it
+before relying on branch-based builds/deployments.
 
 Attach a custom domain in:
 
-- Cloudflare Dashboard -> Workers & Pages -> your Pages project -> Custom domains
+- Cloudflare Dashboard -> Workers & Pages -> your Worker -> Triggers -> Custom Domains
 
 ## Consumption model
 

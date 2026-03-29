@@ -11,10 +11,13 @@
     "build": "astro build",
     "dev": "astro dev",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "deploy": "wrangler deploy",
+    "versions:upload": "wrangler versions upload"
   },
   "devDependencies": {
     "astro": "^5.7.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "wrangler": "^4.78.0"
   }
 }
